@@ -115,6 +115,24 @@ txnResp, err := txn.If(clientv3.Compare(clientv3.Value("/hi"), "=", "hello")).
     - 每个 key 带有一个 Revision 号，每进行一次事务便+1，它是全局唯一的， 
     - 通过 Revision 的大小就可以知道进行写操作的顺序, 通过它实现分布式锁
 
+### [维护](https://etcd.io/docs/v3.5/op-guide/maintenance/)
+
+```bash
+# 告警
+etcdctl --write-out=table --endpoints=$ENDPOINTS endpoint status
+etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd alarm list
+
+# ----compact
+# 获取revision
+etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd endpoint status --write-out=json
+# compact
+etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd compact <revision>
+# defrag
+etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd defrag  # 貌似compact需要一定时间, 期间无法使用?
+
+# ----自动compact
+
+```
 
 ### API
 
