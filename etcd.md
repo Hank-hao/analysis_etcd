@@ -121,6 +121,7 @@ txnResp, err := txn.If(clientv3.Compare(clientv3.Value("/hi"), "=", "hello")).
 # 告警
 etcdctl --write-out=table --endpoints=$ENDPOINTS endpoint status
 etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd alarm list
+etcdctl --endpoints=$BJ_ENDPOINTS --user root:passwd alarm disarm
 
 # ----compact
 # 获取revision
